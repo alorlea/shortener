@@ -1,5 +1,6 @@
 package resources;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 import engine.Base62;
@@ -7,10 +8,13 @@ import engine.ShortenerEngine;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import java.util.HashMap;
 import java.util.Map;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
+import representation.Url;
 import representation.UrlMapping;
 
 /**
@@ -29,10 +33,25 @@ public class UrlShortenerResourceTest {
         testURLs.put(urlMapping.getShortURL(), urlMapping.getOriginalURL());
     }
 
-    @Test
+    /*@Test
     public void testGetOriginalURL(){
         Response response = RESOURCE_TEST_RULE.client().target("/shortener/alilnDyEW").request().get();
         assertEquals(response.getStatus(), 307);
-        assertEquals(response.getLocation().toString(), "http://dice.se");
+        assertEquals(response.getLocation().toString(), "http://www.dice.se");
+    }*/
+
+    @Test
+    public void testGetFailsWithUnprocessedURL(){
+        Response response = RESOURCE_TEST_RULE.client().target("/shortener/thisTestFails").request().get();
+        assertEquals(response.getStatus(),404);
+    }
+    @Test
+    public void testPutOriginalURL(){
+        Url url = new Url("http://www.elotrolado.net/");
+        Response response = RESOURCE_TEST_RULE.client().target("/shortener").request(MediaType.APPLICATION_JSON_TYPE).put(
+            Entity
+                .json(url));
+        Url newUrl = response.readEntity(Url.class);
+        assertEquals(newUrl.getUrl(),"http://localhost/shortener/1OcJ3mANiUY");
     }
 }

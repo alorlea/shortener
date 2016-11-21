@@ -50,6 +50,6 @@ public class UrlShortenerResource {
         String originalURL = url.getUrl();
         String shortURL = shortenerEngine.encodeURL(originalURL);
         cachedUrls.put(shortURL,originalURL);
-        return new Url(shortenerEngine.getBaseURL()+"/"+shortURL);
+        return new Url(shortenerEngine.getBaseURL()+"/shortener/"+shortURL);
     }
 }
