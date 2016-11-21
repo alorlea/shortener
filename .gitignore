@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+*.iml
+shortener-application/frontend-webapp.iml
+shortener-service/shortener-service.iml
+urlshortener.iml

@@ -47,8 +47,9 @@ public class UrlShortenerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Url createNewShortUrl(Url url){
-        String originalURL = url.getURL();
+        String originalURL = url.getUrl();
         String shortURL = shortenerEngine.encodeURL(originalURL);
+        cachedUrls.put(shortURL,originalURL);
         return new Url(shortenerEngine.getBaseURL()+"/"+shortURL);
     }
 }

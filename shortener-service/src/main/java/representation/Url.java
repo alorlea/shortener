@@ -1,16 +1,22 @@
 package representation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by alberto on 2016-11-19.
  */
 public class Url {
-    private String URL;
+    private String url;
 
-    public Url(String URL) {
-        this.URL = URL;
+    public Url() {
     }
 
-    public String getURL() {
-        return URL;
+    public Url(String url) {
+        this.url = url;
+    }
+
+    @JsonProperty
+    public String getUrl() {
+        return url;
     }
 }
