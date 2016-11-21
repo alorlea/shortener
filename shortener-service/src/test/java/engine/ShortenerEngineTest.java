@@ -19,13 +19,13 @@ public class ShortenerEngineTest {
 
     @Test
     public void encodingURLGivesShortURL(){
-        String shortUrl = shortenerEngine.encodeURL("http://dice.se");
-        assertEquals("alilnDyEW", shortUrl);
+        String shortUrl = shortenerEngine.encodeURL("http://www.dice.se");
+        assertEquals("6MGfYfqMxwd", shortUrl);
     }
 
     @Test
     public void differentURLsGiveDifferentResults(){
-        String shortUrl = shortenerEngine.encodeURL("http://dice.se");
+        String shortUrl = shortenerEngine.encodeURL("http://www.dice.se");
         String other = shortenerEngine.encodeURL("http://www.google.com");
         assertNotEquals(shortUrl, other);
     }
