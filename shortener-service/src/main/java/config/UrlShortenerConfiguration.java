@@ -1,7 +1,9 @@
 package config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.internal.NotNull;
 import io.dropwizard.Configuration;
+import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -15,6 +17,20 @@ public class UrlShortenerConfiguration extends Configuration{
     private String client;
     private String tableName;
     private String keyspace;
+
+    @Valid
+    @NotNull
+    private CassandraFactory cassandra = new CassandraFactory();
+
+    @JsonProperty("cassandra")
+    public CassandraFactory getCassandraFactory() {
+        return cassandra;
+    }
+
+    @JsonProperty("cassandra")
+    public void setCassandraFactory(CassandraFactory cassandra) {
+        this.cassandra = cassandra;
+    }
 
     @JsonProperty
     public String getBaseURL() {

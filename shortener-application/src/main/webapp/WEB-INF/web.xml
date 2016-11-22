@@ -15,11 +15,11 @@
         <servlet-class>org.eclipse.jetty.servlets.ProxyServlet$Transparent</servlet-class>
         <init-param>
             <param-name>ProxyTo</param-name>
-            <param-value>http://localhost:8080/UrlShortener</param-value>
+            <param-value>http://localhost:8080/shortener</param-value>
         </init-param>
         <init-param>
             <param-name>Prefix</param-name>
-            <param-value>/UrlShortener</param-value>
+            <param-value>/shortener</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
         <!--async-supported>true</async-supported-->
@@ -28,7 +28,7 @@
     <!-- Make the proxy handle requests to /api/* -->
     <servlet-mapping>
         <servlet-name>proxy</servlet-name>
-        <url-pattern>/UrlShortener/*</url-pattern>
+        <url-pattern>/shortener/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

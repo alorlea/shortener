@@ -17,6 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard.version>1.0.4</dropwizard.version>
+        <dropwizard-cassandra.version>4.0.0</dropwizard-cassandra.version>
     </properties>
 
     <dependencyManagement>
@@ -41,6 +42,11 @@
                 <artifactId>dropwizard-testing</artifactId>
                 <version>${dropwizard.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>systems.composable</groupId>
+                <artifactId>dropwizard-cassandra</artifactId>
+                <version>${dropwizard-cassandra.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
