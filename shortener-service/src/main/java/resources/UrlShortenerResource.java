@@ -1,6 +1,7 @@
 package resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.datastax.driver.core.Cluster;
 import engine.ShortenerEngine;
 import representation.Url;
 
@@ -19,10 +20,12 @@ import java.util.Map;
 public class UrlShortenerResource {
     private Map<String, String> cachedUrls;
     private ShortenerEngine shortenerEngine;
+    private Cluster cassandra;
 
-    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine) {
+    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, Cluster cassandra) {
         this.cachedUrls = cachedUrls;
         this.shortenerEngine = shortenerEngine;
+        this.cassandra = cassandra;
     }
 
     @GET

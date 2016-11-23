@@ -1,10 +1,11 @@
 package config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.internal.NotNull;
 import io.dropwizard.Configuration;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import systems.composable.dropwizard.cassandra.CassandraFactory;
 
 /**
  * Created by alberto on 2016-11-19.

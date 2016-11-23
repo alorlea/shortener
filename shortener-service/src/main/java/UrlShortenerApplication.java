@@ -1,3 +1,4 @@
+import com.datastax.driver.core.Cluster;
 import config.UrlShortenerConfiguration;
 import engine.Base62;
 import engine.ShortenerEngine;
@@ -17,9 +18,9 @@ public class UrlShortenerApplication extends Application<UrlShortenerConfigurati
 
     @Override
     public void run(UrlShortenerConfiguration urlShortenerConfiguration, Environment environment) throws Exception {
-        final Cluster cassandra = urlShortenerConfiguration.getCassandraFactory();
+        final Cluster cassandra = urlShortenerConfiguration.getCassandraFactory().build(environment);
 
-        final UrlShortenerResource resource = new UrlShortenerResource(new ConcurrentHashMap<>(), new ShortenerEngine(urlShortenerConfiguration.getBaseURL(), new Base62(), 8));
+        final UrlShortenerResource resource = new UrlShortenerResource(new ConcurrentHashMap<>(), new ShortenerEngine(urlShortenerConfiguration.getBaseURL(), new Base62(), 8), cassandra);
         environment.jersey().register(resource);
     }
 }

@@ -2,7 +2,9 @@ package resources;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
+import com.datastax.driver.core.Cluster;
 import engine.Base62;
 import engine.ShortenerEngine;
 import io.dropwizard.testing.junit.ResourceTestRule;
@@ -23,8 +25,10 @@ import representation.UrlMapping;
 public class UrlShortenerResourceTest {
     private static final Map<String,String> testURLs = new HashMap<String,String>();
 
+    private static final Cluster cassandra = mock(Cluster.class);
+
     @ClassRule
-    public static final ResourceTestRule RESOURCE_TEST_RULE = ResourceTestRule.builder().addResource(new UrlShortenerResource(testURLs, new ShortenerEngine("http://localhost", new Base62(), 8))).build();
+    public static final ResourceTestRule RESOURCE_TEST_RULE = ResourceTestRule.builder().addResource(new UrlShortenerResource(testURLs, new ShortenerEngine("http://localhost", new Base62(), 8), cassandra)).build();
 
     private final UrlMapping urlMapping = new UrlMapping("http://www.dice.se", "6MGfYfqMxwd");
 
@@ -32,13 +36,6 @@ public class UrlShortenerResourceTest {
     public void setup(){
         testURLs.put(urlMapping.getShortURL(), urlMapping.getOriginalURL());
     }
-
-    /*@Test
-    public void testGetOriginalURL(){
-        Response response = RESOURCE_TEST_RULE.client().target("/shortener/alilnDyEW").request().get();
-        assertEquals(response.getStatus(), 307);
-        assertEquals(response.getLocation().toString(), "http://www.dice.se");
-    }*/
 
     @Test
     public void testGetFailsWithUnprocessedURL(){
