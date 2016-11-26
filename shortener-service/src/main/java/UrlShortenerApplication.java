@@ -18,9 +18,8 @@ public class UrlShortenerApplication extends Application<UrlShortenerConfigurati
 
     @Override
     public void run(UrlShortenerConfiguration urlShortenerConfiguration, Environment environment) throws Exception {
-        final Cluster cassandra = urlShortenerConfiguration.getCassandraFactory().build(environment);
 
-        final UrlShortenerResource resource = new UrlShortenerResource(new ConcurrentHashMap<>(), new ShortenerEngine(urlShortenerConfiguration.getBaseURL(), new Base62(), 8), cassandra);
+        final UrlShortenerResource resource = new UrlShortenerResource(new ConcurrentHashMap<>(), new ShortenerEngine(urlShortenerConfiguration.getBaseURL(), new Base62(), 8));
         environment.jersey().register(resource);
     }
 }

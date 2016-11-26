@@ -11,6 +11,7 @@
     <modules>
         <module>shortener-application</module>
         <module>shortener-service</module>
+        <module>dropwizard-cassandra-bundle</module>
     </modules>
 
     <name>url-shortener</name>
