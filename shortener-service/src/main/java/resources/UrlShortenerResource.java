@@ -1,7 +1,7 @@
 package resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.datastax.driver.core.Cluster;
+import com.netflix.astyanax.Keyspace;
 import engine.ShortenerEngine;
 import representation.Url;
 
@@ -20,12 +20,12 @@ import java.util.Map;
 public class UrlShortenerResource {
     private Map<String, String> cachedUrls;
     private ShortenerEngine shortenerEngine;
-    private Cluster cassandra;
+    private Keyspace keyspace;
 
-    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, Cluster cassandra) {
+    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, Keyspace keyspace) {
         this.cachedUrls = cachedUrls;
         this.shortenerEngine = shortenerEngine;
-        this.cassandra = cassandra;
+        this.keyspace = keyspace;
     }
 
     @GET

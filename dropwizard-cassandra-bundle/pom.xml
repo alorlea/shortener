@@ -16,16 +16,8 @@
     <properties>
         <astyanax.version>3.9.0</astyanax.version>
         <dropwizard.version>1.0.4</dropwizard.version>
-        <google-guice.version>4.1.0</google-guice.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${google-guice.version}</version>
-            <scope>compile</scope>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-configuration</artifactId>
@@ -43,14 +35,6 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
         </dependency>
         <dependency>
             <groupId>com.netflix.astyanax</groupId>

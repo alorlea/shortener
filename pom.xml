@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard.version>1.0.4</dropwizard.version>
         <dropwizard-cassandra.version>4.0.0</dropwizard-cassandra.version>
+        <astyanax.version>3.9.0</astyanax.version>
     </properties>
 
     <dependencyManagement>
@@ -45,9 +46,14 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>systems.composable</groupId>
-                <artifactId>dropwizard-cassandra</artifactId>
-                <version>${dropwizard-cassandra.version}</version>
+                <groupId>com.netflix.astyanax</groupId>
+                <artifactId>astyanax</artifactId>
+                <version>${astyanax.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.astyanax</groupId>
+                <artifactId>astyanax-cassandra</artifactId>
+                <version>${astyanax.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
