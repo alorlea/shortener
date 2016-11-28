@@ -1,7 +1,7 @@
 package resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.netflix.astyanax.Keyspace;
+import dao.UrlDAO;
 import engine.ShortenerEngine;
 import representation.Url;
 
@@ -20,12 +20,12 @@ import java.util.Map;
 public class UrlShortenerResource {
     private Map<String, String> cachedUrls;
     private ShortenerEngine shortenerEngine;
-    private Keyspace keyspace;
+    private UrlDAO urlDAO;
 
-    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, Keyspace keyspace) {
+    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, UrlDAO urlDAO) {
         this.cachedUrls = cachedUrls;
         this.shortenerEngine = shortenerEngine;
-        this.keyspace = keyspace;
+        this.urlDAO = urlDAO;
     }
 
     @GET
@@ -38,6 +38,7 @@ public class UrlShortenerResource {
                 URI location = new URI(result);
                 return Response.temporaryRedirect(location).build();
             } else {
+                //fetch it from the database
                 return Response.status(404).build();
             }
         } catch (URISyntaxException e){
@@ -53,6 +54,7 @@ public class UrlShortenerResource {
         String originalURL = url.getUrl();
         String shortURL = shortenerEngine.encodeURL(originalURL);
         cachedUrls.put(shortURL,originalURL);
+        urlDAO.insertUrlMapping(shortURL,originalURL);
         return new Url(shortenerEngine.getBaseURL()+"/shortener/"+shortURL);
     }
 }

@@ -1,4 +1,5 @@
 import config.UrlShortenerConfiguration;
+import dao.UrlDAO;
 import engine.Base62;
 import engine.ShortenerEngine;
 import io.dropwizard.Application;
@@ -27,12 +28,12 @@ public class UrlShortenerApplication extends Application<UrlShortenerConfigurati
 
     @Override
     public void run(UrlShortenerConfiguration urlShortenerConfiguration, Environment environment) throws Exception {
-
+        final UrlDAO urlDAO = new UrlDAO(cassandraAstyanaxBundle.getManagedAstyanaxClient().getClient());
         final UrlShortenerResource resource = new UrlShortenerResource(
             new ConcurrentHashMap<>(),
             new ShortenerEngine(urlShortenerConfiguration.getBaseURL(),
                 new Base62(), 8),
-            cassandraAstyanaxBundle.getManagedAstyanaxClient().getClient()
+            urlDAO
         );
 
         environment.jersey().register(resource);
