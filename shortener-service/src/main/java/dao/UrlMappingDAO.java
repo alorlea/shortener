@@ -28,14 +28,20 @@ public class UrlMappingDAO {
 
     public void putNewEncodedURL(String shortUrl, String originalUrl){
         String uuid = UUID.randomUUID().toString();
-        this.getSession(cassandraDB).execute(
+        Session session = getSession(cassandraDB);
+
+        session.execute(
             "INSERT INTO " + keyspace + "." + tableName + " (id, shortUrl, originalUrl)" +
             "VALUES (" + uuid + ",'" + shortUrl + "'," + "'" + originalUrl + "')" + ";");
+
+        session.close();
     }
 
 
     public String getOriginalURL(String shortUrl){
-        ResultSet results = this.getSession(cassandraDB).execute("SELECT * FROM " + keyspace + "." + tableName
+        Session session = getSession(cassandraDB);
+
+        ResultSet results = session.execute("SELECT * FROM " + keyspace + "." + tableName
             +" WHERE shortUrl = '" + shortUrl + "' ALLOW FILTERING;");
 
         Row row1 = results.one();
@@ -43,11 +49,7 @@ public class UrlMappingDAO {
         if(row1 != null) {
             result = row1.getString("originalUrl");
         }
-        for (Row row : results) {
-            System.out.println(String.format("%-30s\t%-20s",
-                row.getString("shortUrl"),
-                row.getString("originalUrl")));
-        }
+        session.close();
         return result;
     }
 
