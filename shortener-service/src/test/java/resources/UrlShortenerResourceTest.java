@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 import com.datastax.driver.core.Cluster;
+import dao.UrlMappingDAO;
 import engine.Base62;
 import engine.ShortenerEngine;
 import io.dropwizard.testing.junit.ResourceTestRule;
@@ -27,8 +28,9 @@ public class UrlShortenerResourceTest {
 
     private static final Cluster cassandra = mock(Cluster.class);
 
+    private static final UrlMappingDAO URL_MAPPING_DAO = new UrlMappingDAO("url-mappings","authentication", cassandra);
     @ClassRule
-    public static final ResourceTestRule RESOURCE_TEST_RULE = ResourceTestRule.builder().addResource(new UrlShortenerResource(testURLs, new ShortenerEngine("http://localhost", new Base62(), 8), cassandra)).build();
+    public static final ResourceTestRule RESOURCE_TEST_RULE = ResourceTestRule.builder().addResource(new UrlShortenerResource(testURLs, new ShortenerEngine("http://localhost", new Base62(), 8), URL_MAPPING_DAO)).build();
 
     private final UrlMapping urlMapping = new UrlMapping("http://www.dice.se", "6MGfYfqMxwd");
 

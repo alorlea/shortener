@@ -22,9 +22,10 @@ public class UrlShortenerResource {
     private ShortenerEngine shortenerEngine;
     private UrlMappingDAO urlMappingDAO;
 
-    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine) {
+    public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine, UrlMappingDAO urlMappingDAO) {
         this.cachedUrls = cachedUrls;
         this.shortenerEngine = shortenerEngine;
+        this.urlMappingDAO = urlMappingDAO;
     }
 
     @GET

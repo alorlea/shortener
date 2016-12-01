@@ -1,5 +1,6 @@
 import com.datastax.driver.core.Cluster;
 import config.UrlShortenerConfiguration;
+import dao.UrlMappingDAO;
 import engine.Base62;
 import engine.ShortenerEngine;
 import io.dropwizard.Application;
@@ -22,7 +23,11 @@ public class UrlShortenerApplication extends Application<UrlShortenerConfigurati
         final UrlShortenerResource resource = new UrlShortenerResource(
             new ConcurrentHashMap<>(),
             new ShortenerEngine(urlShortenerConfiguration.getBaseURL(),
-                new Base62(), 8)
+                new Base62(), 8), new UrlMappingDAO(
+                    "url-mappings",
+                    urlShortenerConfiguration.getCassandraFactory().getKeyspace(),
+                    cassandra
+            )
         );
 
         environment.jersey().register(resource);
