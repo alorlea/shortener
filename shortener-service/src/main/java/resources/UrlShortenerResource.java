@@ -39,8 +39,13 @@ public class UrlShortenerResource {
                 return Response.temporaryRedirect(location).build();
             } else {
                 //fetch it from the database
-
-                return Response.status(404).build();
+                String result = urlMappingDAO.getOriginalURL(shortURL);
+                if(result == null){
+                    return Response.status(404).build();
+                }else{
+                    URI location = new URI(result);
+                    return Response.temporaryRedirect(location).build();
+                }
             }
         } catch (URISyntaxException e){
             e.printStackTrace();
@@ -55,6 +60,7 @@ public class UrlShortenerResource {
         String originalURL = url.getUrl();
         String shortURL = shortenerEngine.encodeURL(originalURL);
         cachedUrls.put(shortURL,originalURL);
+        urlMappingDAO.putNewEncodedURL(shortURL,originalURL);
         return new Url(shortenerEngine.getBaseURL()+"/shortener/"+shortURL);
     }
 }
