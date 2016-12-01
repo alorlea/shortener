@@ -1,6 +1,7 @@
 package resources;
 
 import com.codahale.metrics.annotation.Timed;
+import dao.UrlMappingDAO;
 import engine.ShortenerEngine;
 import representation.Url;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 public class UrlShortenerResource {
     private Map<String, String> cachedUrls;
     private ShortenerEngine shortenerEngine;
+    private UrlMappingDAO urlMappingDAO;
 
     public UrlShortenerResource(Map<String, String> cachedUrls, ShortenerEngine shortenerEngine) {
         this.cachedUrls = cachedUrls;
