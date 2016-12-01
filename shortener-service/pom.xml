@@ -22,11 +22,6 @@
             <artifactId>dropwizard-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-testing</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.netflix.astyanax</groupId>
             <artifactId>astyanax</artifactId>
         </dependency>
@@ -36,21 +31,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.netflix.astyanax</groupId>
-            <artifactId>astyanax-cassandra</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.astyanax</groupId>
-            <artifactId>astyanax-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.astyanax</groupId>
-            <artifactId>astyanax-thrift</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dw.urlshortener</groupId>
-            <artifactId>dropwizard-cassandra-astyanax</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>systems.composable</groupId>
+            <artifactId>dropwizard-cassandra</artifactId>
+            <version>${dropwizard-cassandra.version}</version>
         </dependency>
     </dependencies>
     <build>

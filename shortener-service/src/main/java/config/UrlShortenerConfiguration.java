@@ -2,7 +2,10 @@ package config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import systems.composable.dropwizard.cassandra.CassandraFactory;
 
 /**
  * Created by alberto on 2016-11-19.
@@ -10,6 +13,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UrlShortenerConfiguration extends Configuration{
     @NotEmpty
     private String baseURL;
+
+    @Valid
+    @NotNull
+    private CassandraFactory cassandra = new CassandraFactory();
 
     @JsonProperty
     public String getBaseURL() {
@@ -22,9 +29,12 @@ public class UrlShortenerConfiguration extends Configuration{
     }
 
     @JsonProperty("cassandra")
-    protected CassandraConfiguration cassandraConfiguration;
+    public CassandraFactory getCassandraFactory() {
+        return cassandra;
+    }
 
-    public CassandraConfiguration getCassandraConfiguration(){
-        return cassandraConfiguration;
+    @JsonProperty("cassandra")
+    public void setCassandraFactory(CassandraFactory cassandra) {
+        this.cassandra = cassandra;
     }
 }
