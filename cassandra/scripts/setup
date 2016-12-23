@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cassandra -R >/dev/null 2>&1 < /dev/null;
+
+printf "Cassandra starting"
+
+until cqlsh >/dev/null 2>&1 < /dev/null; do
+    printf "."
+    sleep 0.5
+done
+
+printf "\n"
+
+for keyspace in $CASSANDRA_KEYSPACEs; do
+    echo "Creating $keyspace"
+    cqlsh -e "CREATE KEYSPACE IF NOT EXISTS \"$keyspace\" WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor': 1};"
+done
