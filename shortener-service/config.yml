@@ -1,0 +1,4 @@
+baseURL: "http://localhost"
+cassandra:
+  clusterName: "minimal-cluster"
+  contactPoints: ["localhost"]

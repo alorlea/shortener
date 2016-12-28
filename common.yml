@@ -2,16 +2,22 @@ version: '2'
 
 services:
   shortener-service:
-    extends:
-      file: common.yml
-      service: shortener-service
+    build: shortener-service
+    hostname: shortener
+    ports:
+      - 8080:8080
+      - 8081:8081
 
   shortener-frontend:
-    extends:
-      file: common.yml
-      service: shortener-frontend
+    build: shortener-application
+    hostname: frontend
+    ports:
+      - 5000:5000
 
   cassandra:
-    extends:
-      file: common.yml
-      service: cassandra
+    build: cassandra
+    hostname: cassandra
+    ports:
+      - 9160:9160
+      - 9042:9042
+      - 7199:7199

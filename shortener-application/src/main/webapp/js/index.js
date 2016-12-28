@@ -19,7 +19,7 @@ $(document).ready(function () {
 function addUrl(url) {
     jQuery.ajax({
         type: "PUT",
-        url: "/UrlShortener",
+        url: "/shortener",
         accepts: "application/json",
         cache: false,
         contentType: "application/json",
